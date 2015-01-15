@@ -28,7 +28,7 @@
 {
 
     // Create media player component
-    var player = Nuvola.$object(Nuvola.MediaPlayer);
+    var nuvolaPlayer = Nuvola.$object(Nuvola.MediaPlayer);
 
     // Handy aliases
     var PlaybackState = Nuvola.PlaybackState;
@@ -48,6 +48,7 @@
         else
             document.addEventListener("DOMContentLoaded",
                     this._onPageReady.bind(this));
+
     }
 
     // Page is ready for magic
@@ -56,45 +57,92 @@
         // Connect handler for signal ActionActivated
         Nuvola.actions.connect("ActionActivated", this);
 
+        // Hook into Spotify globals
+        if(!window.Spotify.Shuttle._initContext) return;
+        this.context = window.Spotify.Shuttle._initContext;
+        this.spotifyPlayer = this.context.contextPlayer;
+        this.appManager = this.context.applicationManager;
+
         this.update()
     }
 
-    // Extract data from the web page
+    WebApp.reset = function() {
+        var track = {
+            title: null,
+            artist: null,
+            album: null,
+            artLocation: null
+        };
+        this.setTrack(track);
+        this.setPlaybackState(PlaybackState.UNKNOWN);
+    }
+
+    // Update all the Nuvola state
     WebApp.update = function()
     {
-        // Scrape track info
-        var track = null;
-        var artist = null;
-        var album = null;
-        var art = null;
-        var track = {
-            title: track,
-            artist: artist,
-            album: album,
-            artLocation: art
-        };
-
-        // Set default state
-        var state = PlaybackState.UNKNOWN;
-
-        player.setTrack(track);
-        player.setPlaybackState(state);
-
-        // Schedule the next update
+        this.updateTrack();
         setTimeout(this.update.bind(this), 500);
     }
 
+    // Get the current song state and update
+    WebApp.updateTrack = function()
+    {
+        this.spotifyPlayer.getPlayerState().then(function (result) {
+            var song = result.trackState.track;
+            if (!song) this.reset();
+
+            var track = {
+                title: song.name,
+                artist: song.artistName,
+                album: song.albumName,
+                artLocation: song.image
+            };
+            var state = result.playbackState.playing ?
+                    PlaybackState.PLAYING : PlaybackState.PAUSED;
+
+            nuvolaPlayer.setTrack(track);
+            nuvolaPlayer.setPlaybackState(state);
+        }
+    }
+
+    // Update available actios based on context
+    WebApp.updateActions = function() {
+        var playing = !!this.spotifyPlayer._currentTrack;
+        nuvolaPlayer.canPlay(playing);
+        nuvolaPlayer.canPause(!playing);
+        this.spotifyPlayer._loadedContextList.hasNext().then(function (result) {
+            nuvolaPlayer.canGoNext(result);
+        });
+        this.spotifyPlayer._loadedContextList.hasPrev().then(function (result) {
+            nuvolaPlayer.canGoPrev(result);
+        });
+    }
+
     // Handler of playback actions
-    WebApp._onActionActivated = function(emitter, name, param)
+    WebApp._onActionActivated = function(emitter, name)
     {
         switch(name)
         {
             case PlayerAction.TOGGLE_PLAY:
+                this.spotifyPlayer.togglePlay();
                 break;
             case PlayerAction.PLAY:
+                this.spotifyPlayer.play();
                 break;
             case PlayerAction.PAUSE:
+                this.spotifyPlayer.pause();
                 break;
+            case PlayerAction.STOP:
+                this.spotifyPlayer.stop();
+                break;
+            case PlayerAction.PREV_SONG:
+                this.spotifyPlayer.previous("backbtn");
+                break;
+            case PlayerAction.NEXT_SONG:
+                this.spotifyPlayer.next("fwdbtn");
+                break;
+            default:
+                throw {"message": "Not supported."};
         }
     }
 
