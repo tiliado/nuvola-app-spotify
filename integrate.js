@@ -57,17 +57,18 @@
         // Connect handler for signal ActionActivated
         Nuvola.actions.connect("ActionActivated", this);
 
-        this.ready();
+        this.connect();
     }
 
-    WebApp.ready = function()
+    // Connects to the Spotify hooks and starts updates
+    WebApp.connect = function()
     {
-        this.context = window.Spotify.Shuttle._initContext;
-        if(this.context)
+        // It takes some time for Spotify webapp to fully load, so we keep
+        // trying to get the player until it succeeds
+        context = window.Spotify.Shuttle._initContext;
+        if(context)
         {
-            this.spotifyPlayer = this.context.contextPlayer;
-            this.appManager = this.context.applicationManager;
-
+            this.spotifyPlayer = context.contextPlayer;
             this.reset();
             this.update();
         }
@@ -77,6 +78,7 @@
         }
     }
 
+    // Wipe the current playstate
     WebApp.reset = function() {
         var track = {
             title: null,
@@ -134,10 +136,12 @@
 
         if(this.spotifyPlayer._loadedContextList)
         {
-            this.spotifyPlayer._loadedContextList.hasNext().then(function (result) {
+            this.spotifyPlayer._loadedContextList.hasNext().then(
+                    function (result) {
                 nuvolaPlayer.setCanGoNext(result);
             });
-            this.spotifyPlayer._loadedContextList.hasPrevious().then(function (result) {
+            this.spotifyPlayer._loadedContextList.hasPrevious().then(
+                    function (result) {
                 nuvolaPlayer.setCanGoPrev(result);
             });
         }
