@@ -57,13 +57,24 @@
         // Connect handler for signal ActionActivated
         Nuvola.actions.connect("ActionActivated", this);
 
-        // Hook into Spotify globals
-        if(!window.Spotify.Shuttle._initContext) return;
-        this.context = window.Spotify.Shuttle._initContext;
-        this.spotifyPlayer = this.context.contextPlayer;
-        this.appManager = this.context.applicationManager;
+        this.ready();
+    }
 
-        this.update()
+    WebApp.ready = function()
+    {
+        this.context = window.Spotify.Shuttle._initContext;
+        if(this.context)
+        {
+            this.spotifyPlayer = this.context.contextPlayer;
+            this.appManager = this.context.applicationManager;
+
+            this.reset();
+            this.update();
+        }
+        else
+        {
+            setTimeout(this.ready.bind(this), 100);
+        }
     }
 
     WebApp.reset = function() {
@@ -73,49 +84,63 @@
             album: null,
             artLocation: null
         };
-        this.setTrack(track);
-        this.setPlaybackState(PlaybackState.UNKNOWN);
+        nuvolaPlayer.setTrack(track);
+        nuvolaPlayer.setPlaybackState(PlaybackState.UNKNOWN);
+
+        nuvolaPlayer.setCanPlay(false);
+        nuvolaPlayer.setCanPause(false);
+        nuvolaPlayer.setCanGoNext(false);
+        nuvolaPlayer.setCanGoPrev(false);
     }
 
-    // Update all the Nuvola state
+    // Get the current Spotify state and update Nuvola
     WebApp.update = function()
-    {
-        this.updateTrack();
-        setTimeout(this.update.bind(this), 500);
-    }
-
-    // Get the current song state and update
-    WebApp.updateTrack = function()
     {
         this.spotifyPlayer.getPlayerState().then(function (result) {
             var song = result.trackState.track;
-            if (!song) this.reset();
-
-            var track = {
-                title: song.name,
-                artist: song.artistName,
-                album: song.albumName,
-                artLocation: song.image
-            };
-            var state = result.playbackState.playing ?
-                    PlaybackState.PLAYING : PlaybackState.PAUSED;
-
-            nuvolaPlayer.setTrack(track);
-            nuvolaPlayer.setPlaybackState(state);
-        }
+            var playing = result.playbackState.playing;
+            if(song)
+            {
+                this.updateTrack(song);
+                this.updateState(playing);
+            }
+            else
+            {
+                this.reset();
+            }
+        }.bind(this));
+        setTimeout(this.update.bind(this), 500);
     }
 
-    // Update available actios based on context
-    WebApp.updateActions = function() {
-        var playing = !!this.spotifyPlayer._currentTrack;
-        nuvolaPlayer.canPlay(playing);
-        nuvolaPlayer.canPause(!playing);
-        this.spotifyPlayer._loadedContextList.hasNext().then(function (result) {
-            nuvolaPlayer.canGoNext(result);
-        });
-        this.spotifyPlayer._loadedContextList.hasPrev().then(function (result) {
-            nuvolaPlayer.canGoPrev(result);
-        });
+    // Update the currently playing track
+    WebApp.updateTrack = function(song)
+    {
+        var track = {
+            title: song.name,
+            artist: song.artistName,
+            album: song.albumName,
+            artLocation: song.image
+        };
+        nuvolaPlayer.setTrack(track);
+    }
+
+    // Update state and available actions
+    WebApp.updateState = function(playing) {
+        var state = playing ? PlaybackState.PLAYING : PlaybackState.PAUSED;
+        nuvolaPlayer.setPlaybackState(state);
+
+        nuvolaPlayer.setCanPlay(!playing);
+        nuvolaPlayer.setCanPause(playing);
+
+        if(this.spotifyPlayer._loadedContextList)
+        {
+            this.spotifyPlayer._loadedContextList.hasNext().then(function (result) {
+                nuvolaPlayer.setCanGoNext(result);
+            });
+            this.spotifyPlayer._loadedContextList.hasPrevious().then(function (result) {
+                nuvolaPlayer.setCanGoPrev(result);
+            });
+        }
     }
 
     // Handler of playback actions
@@ -127,7 +152,7 @@
                 this.spotifyPlayer.togglePlay();
                 break;
             case PlayerAction.PLAY:
-                this.spotifyPlayer.play();
+                this.spotifyPlayer.resume();
                 break;
             case PlayerAction.PAUSE:
                 this.spotifyPlayer.pause();

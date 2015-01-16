@@ -3,8 +3,7 @@
     "name": "Spotify",
     "maintainer_name": "Michael Nye",
     "maintainer_link": "https://github.com/thenyeguy",
-    "home_age": "https://play.spotify.com",
-    "allowed_uri": "(https?://o\.scdn\.co|https?://\w*\.?\w*\.?spotify\.com|https?://play\.spotify\.edgekey\.net|https?://\w*\.?spapps\.co|https?://s-static\.ak\.fbcdn\.net|https?:fbcdn-profile-.\.akamaihd\.net|https?://www\.facebook\.com|https?://glue-static\.\w\.amazonaws\.com|https?:\w\.cloudfront.net|https?://api.tunigo.com)"
+    "home_url": "https://play.spotify.com",
     "version_major": 1,
     "version_minor": 0,
     "api_major": 3,
