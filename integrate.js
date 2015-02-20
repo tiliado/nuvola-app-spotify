@@ -57,7 +57,7 @@
         // Connect handler for signal ActionActivated
         Nuvola.actions.connect("ActionActivated", this);
 
-        this.connect();
+        // this.connect();
     }
 
     // Connects to the Spotify hooks and starts updates
@@ -65,7 +65,7 @@
     {
         // It takes some time for Spotify webapp to fully load, so we keep
         // trying to get the player until it succeeds
-        context = window.Spotify.Shuttle._initContext;
+        var context = window.Spotify.Shuttle._initContext;
         if(context)
         {
             this.spotifyPlayer = context.contextPlayer;
@@ -74,7 +74,7 @@
         }
         else
         {
-            setTimeout(this.ready.bind(this), 100);
+            setTimeout(this.connect.bind(this), 100);
         }
     }
 
