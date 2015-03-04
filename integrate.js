@@ -57,7 +57,7 @@
         // Connect handler for signal ActionActivated
         Nuvola.actions.connect("ActionActivated", this);
 
-        // this.connect();
+        this.connect();
     }
 
     // Connects to the Spotify hooks and starts updates
