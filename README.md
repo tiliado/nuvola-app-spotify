@@ -5,7 +5,9 @@ Spotify for Nuvola Player 3
 
 Integration of Spotify into your linux desktop via
 [Nuvola Player](https://github.com/tiliado/nuvolaplayer).
- 
+
+Based on the Nuvola Player 2 Spotify plugin by Chase Colman (<chase@colman.io>).
+
 Support
 -------
 
@@ -21,5 +23,5 @@ Installation
 Copyright
 ---------
 
-  - Copyright 2014 Jiří Janoušek <janousek.jiri@gmail.com>
+  - Copyright 2015 Michael Nye <thenyeguy@gmail.com>
   - License: [2-Clause BSD-license](./LICENSE)

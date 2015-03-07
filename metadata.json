@@ -1,8 +1,9 @@
 {
     "id": "spotify",
     "name": "Spotify",
-    "maintainer_name": "Chase Colman?",
-    "maintainer_link": "https://github.com/FIXME",
+    "maintainer_name": "Michael Nye",
+    "maintainer_link": "https://github.com/thenyeguy",
+    "home_url": "https://play.spotify.com/browse",
     "version_major": 2,
     "version_minor": 0,
     "api_major": 3,
