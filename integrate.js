@@ -42,6 +42,13 @@
     {
         Nuvola.WebApp._onInitWebWorker.call(this, emitter);
 
+        /*
+         * Spotify fails to load when localStorage["indexeddb"] is true and shows only logo and background.
+         * Let's remove this item! See issue https://github.com/tiliado/nuvolaplayer/issues/82
+         * You can use `localStorage["indexeddb"] = true;` for testing ;-)
+         */
+        window.localStorage.removeItem("indexeddb");
+        
         var state = document.readyState;
         if (state === "interactive" || state === "complete")
             this._onPageReady();
