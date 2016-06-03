@@ -9,5 +9,7 @@
     "version_minor": 1,
     "api_major": 3,
     "api_minor": 0,
-    "categories": "AudioVideo;Audio;"
+    "categories": "AudioVideo;Audio;",
+    "webkitgtk": 20800,
+    "libsoup": 25000
 }
