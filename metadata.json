@@ -3,6 +3,7 @@
     "name": "Spotify",
     "maintainer_name": "Michael Nye",
     "maintainer_link": "https://github.com/thenyeguy",
+    "license": "2-Clause BSD-license",
     "home_url": "https://play.spotify.com/browse",
     "version_major": 2,
     "version_minor": 1,
