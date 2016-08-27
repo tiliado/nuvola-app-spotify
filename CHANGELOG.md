@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.2 - unreleased
---------------------
+2.2 - August 27th, 2016
+-----------------------
 
   * Added a complete icon set.
   * Added information about contributing to the script.
