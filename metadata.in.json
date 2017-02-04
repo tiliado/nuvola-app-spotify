@@ -1,0 +1,25 @@
+{
+    "id": "spotify", 
+    "name": "Spotify", 
+    "maintainer_name": "Michael Nye", 
+    "maintainer_link": "https://github.com/thenyeguy", 
+    "license": "2-Clause BSD-license", 
+    "home_url": "https://play.spotify.com/browse", 
+    "version_major": 2, 
+    "version_minor": 2, 
+    "api_major": 3, 
+    "api_minor": 0, 
+    "categories": "AudioVideo;Audio;", 
+    "webkitgtk": 20800, 
+    "libsoup": 25000, 
+    "build": {
+        "icons": [
+            "src/icon.svg SCALABLE 64 128 256", 
+            "src/icon-xs.svg 16 22 24", 
+            "src/icon-sm.svg 32 48"
+        ], 
+        "extra_data": [
+            "outdated-libraries.html"
+        ]
+    }
+}
