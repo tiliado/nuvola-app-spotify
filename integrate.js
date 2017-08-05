@@ -36,38 +36,15 @@
     // Handy aliases
     var PlaybackState = Nuvola.PlaybackState;
     var PlayerAction = Nuvola.PlayerAction;
-
-    // For request to upgrade libraries
-    var WEBKITGTK_UPGRADE_REQUEST = "app.webkitgtk_upgrade";
-    var LIBSOUP_UPGRADE_REQUEST = "app.libsoup_upgrade";
-    var WEBKITGTK_UPGRADE_HELP_URL = "https://github.com/tiliado/nuvolaplayer/wiki/WebKitGTK-Upgrade";
-    var KNOWN_ISSUES_URL = "https://github.com/tiliado/nuvola-app-spotify/wiki/Known-Issues";
     
     // Create new WebApp prototype
     var WebApp = Nuvola.$WebApp();
 
-    // Initialization routines
-    WebApp._onInitAppRunner = function(emitter)
-    {
-        Nuvola.WebApp._onInitAppRunner.call(this, emitter);
-        Nuvola.config.setDefault(WEBKITGTK_UPGRADE_REQUEST, null);
-        Nuvola.config.setDefault(LIBSOUP_UPGRADE_REQUEST, null);
-    }
-    
-    WebApp._onHomePageRequest = function(emitter, result)
-    {
-        if (!this._showUpgradeRequest(result))
-            Nuvola.WebApp._onHomePageRequest.call(this, emitter, result);
-    }
-    
     WebApp._onLastPageRequest = function(emitter, result)
     {
-        if (!this._showUpgradeRequest(result))
-        {
-            Nuvola.WebApp._onLastPageRequest.call(this, emitter, result);
-            if (result.url && result.url.indexOf("file://") === 0)
-                result.url = null;
-        }
+        Nuvola.WebApp._onLastPageRequest.call(this, emitter, result);
+        if (result.url && result.url.indexOf("file://") === 0)
+            result.url = null;
     }
     
     // Initialization routines
@@ -85,12 +62,6 @@
     // Page is ready for magic
     WebApp._onPageReady = function()
     {
-        if (location.protocol === "file:")
-        {
-            this._handleUpgradeRequest();
-            return;
-        }
-        
         /*
          * Spotify fails to load when localStorage["indexeddb"] is true and shows only logo and background.
          * Let's remove this item! See issue https://github.com/tiliado/nuvolaplayer/issues/82
@@ -217,78 +188,6 @@
             default:
                 throw {"message": "Not supported."};
         }
-    }
-    
-    WebApp._showUpgradeRequest = function(result)
-    {
-        // FUTURE: Remove Nuvola version check after NP 3.2.0
-        if (Nuvola.VERSION >= 30003
-        && (Nuvola.WEBKITGTK_VERSION < this.meta.webkitgtk || Nuvola.LIBSOUP_VERSION < this.meta.libsoup))
-        {
-            if (Nuvola.config.get(WEBKITGTK_UPGRADE_REQUEST) ===  Nuvola.WEBKITGTK_VERSION + ":" + this.meta.webkitgtk
-            && Nuvola.config.get(LIBSOUP_UPGRADE_REQUEST) === Nuvola.LIBSOUP_VERSION + ":" + this.meta.libsoup)
-            {
-                Nuvola.log(
-                    "Library upgrade request dismissed with WebKitGTK {1} ({2} required) and LibSoup {3} ({4} required).",
-                    this._formatVersion(Nuvola.WEBKITGTK_VERSION),
-                    this._formatVersion(this.meta.webkitgtk),
-                    this._formatVersion(Nuvola.LIBSOUP_VERSION),
-                    this._formatVersion(this.meta.libsoup));
-                return false;
-            }
-            
-            if (result)
-                result.url = "nuvola://outdated-libraries.html";
-            return true;
-        }
-        return false;
-    }
-    
-    WebApp._formatVersion = function(version)
-    {
-        var micro = version % 100;
-        version = (version - micro) / 100;
-        var minor = version % 100;
-        var major = (version - minor) / 100;
-        return major + "." + minor + "." + micro;
-    }
-    
-    WebApp._handleUpgradeRequest = function()
-    {
-        if (!this._showUpgradeRequest())
-        {
-            Nuvola.actions.activate(Nuvola.BrowserAction.GO_HOME);
-            return;
-        }
-        
-        document.getElementById("webkitgtk-found").innerText = this._formatVersion(Nuvola.WEBKITGTK_VERSION);
-        document.getElementById("webkitgtk-required").innerText = this._formatVersion(this.meta.webkitgtk);
-        document.getElementById("libsoup-found").innerText = this._formatVersion(Nuvola.LIBSOUP_VERSION);
-        document.getElementById("libsoup-required").innerText = this._formatVersion(this.meta.libsoup);
-        document.getElementById("known-issues").onclick = this._showKnownIssues.bind(this);
-        document.getElementById("dismiss-upgrade").onclick = this._dismissUpgradeRequest.bind(this);
-        var button = document.getElementById("upgrade-webkitgtk");
-        if (Nuvola.WEBKITGTK_VERSION < this.meta.webkitgtk)
-            button.onclick = this._showWebkitgtkUpgradeInfo.bind(this);
-        else
-            button.style.display = "none";
-    }
-    
-    WebApp._dismissUpgradeRequest = function()
-    {
-        Nuvola.config.set(WEBKITGTK_UPGRADE_REQUEST, Nuvola.WEBKITGTK_VERSION + ":" + this.meta.webkitgtk);
-        Nuvola.config.set(LIBSOUP_UPGRADE_REQUEST, Nuvola.LIBSOUP_VERSION + ":" + this.meta.libsoup);
-        Nuvola.actions.activate(Nuvola.BrowserAction.GO_HOME);
-    }
-    
-    WebApp._showWebkitgtkUpgradeInfo = function()
-    {
-        window.open(WEBKITGTK_UPGRADE_HELP_URL, "WebkitgtkUpgrade", "width=900,height=600");
-    }
-    
-    WebApp._showKnownIssues = function()
-    {
-        window.open(KNOWN_ISSUES_URL, "KnownIssues", "width=900,height=600");
     }
 
     WebApp.start();

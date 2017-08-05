@@ -1,6 +1,11 @@
 Changelog
 =========
 
++1
+--
+
+  * The check of WebKitGTK+ version was removed as Nuvola 3.0.9 depends on new enough version (2.16.3).
+
 2.3 - February 12th, 2017
 -------------------------
 
