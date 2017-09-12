@@ -1,8 +1,8 @@
 Changelog
 =========
 
-+1
---
+2.4 - September 12th, 2017
+-----------------------
 
   * Spotify dropped support for Safari/WebKit. Issue: tiliado/nuvolaruntime#374
   * The check of WebKitGTK+ version was removed as Nuvola 3.0.9 depends on new enough version (2.16.3).
