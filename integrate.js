@@ -58,10 +58,23 @@
             document.addEventListener("DOMContentLoaded",
                     this._onPageReady.bind(this));
     }
+    
+    WebApp.showWebkitgtkUnsupported = function() {
+        if (location.href !== this.meta.home_url) {
+            location.href = this.meta.home_url;
+        } else {
+            var elms = document.getElementsByTagName("a");
+            for (var i = 0; i < elms.length; i++) {
+                elms[i].setAttribute("target", "_blank");
+            }
+        }
+    }
 
     // Page is ready for magic
     WebApp._onPageReady = function()
     {
+        setTimeout(this.showWebkitgtkUnsupported.bind(this), 100);
+        return;
         /*
          * Spotify fails to load when localStorage["indexeddb"] is true and shows only logo and background.
          * Let's remove this item! See issue https://github.com/tiliado/nuvolaplayer/issues/82
