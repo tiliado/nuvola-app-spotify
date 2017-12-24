@@ -1,8 +1,8 @@
-Spotify (Nuvola app)
-====================
+Spotify (Nuvola web app)
+=====================
 
 Integration of Spotify into your linux desktop via
-[Nuvola Player](https://github.com/tiliado/nuvolaplayer).
+[Nuvola Apps Runtime](https://github.com/tiliado/nuvolaruntime).
 
 Support
 -------
@@ -19,7 +19,6 @@ page in order to obtain information about dependencies and installation instruct
 Copyright
 ---------
 
-  - Copyright 2015 Michael Nye <thenyeguy@gmail.com>
-  - Copyright 2014-2016 Jiří Janoušek <janousek.jiri@gmail.com>
+  - Copyright 2014-2017 Jiří Janoušek <janousek.jiri@gmail.com>
   - Copyright 2012-2015 Alexander King (src/icon*.svg)
   - License: [2-Clause BSD-license](./LICENSE)
