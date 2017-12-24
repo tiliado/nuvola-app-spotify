@@ -2,6 +2,7 @@ Changelog
 =========
 
   * New maintainer - Jiří Janoušek. Issue: tiliado/nuvola-app-spotify#20
+  * Script was updated to support new Spotify web player. Issue: tiliado/nuvolaruntime#374
 
 2.4 - September 12th, 2017
 -----------------------
