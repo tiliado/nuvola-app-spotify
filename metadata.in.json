@@ -1,8 +1,8 @@
 {
     "id": "spotify", 
     "name": "Spotify", 
-    "maintainer_name": "Michael Nye", 
-    "maintainer_link": "https://github.com/thenyeguy", 
+    "maintainer_name": "Jiří Janoušek", 
+    "maintainer_link": "https://github.com/fenryxo", 
     "license": "2-Clause BSD-license", 
     "home_url": "https://github.com/tiliado/nuvolaruntime/issues/374", 
     "_home_url": "https://play.spotify.com/browse", 

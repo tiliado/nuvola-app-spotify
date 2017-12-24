@@ -1,6 +1,8 @@
 Changelog
 =========
 
+  * New maintainer - Jiří Janoušek. Issue: tiliado/nuvola-app-spotify#20
+
 2.4 - September 12th, 2017
 -----------------------
 
