@@ -8,7 +8,8 @@
     "version_major": 2, 
     "version_minor": 4, 
     "api_major": 3, 
-    "api_minor": 0, 
+    "api_minor": 0,
+    "requirements": "Chromium[63] Feature[widevine]",
     "categories": "AudioVideo;Audio;", 
     "build": {
         "icons": [
