@@ -53,6 +53,18 @@
   }
 
   WebApp.update = function () {
+    /* The connect bar sometimes gets stuck and the page fails to play. */
+    if (this.getConnectBar()) {
+      setTimeout(() => {
+        if (this.getConnectBar()) {
+          window.location.reload(false)
+        } else {
+          this.update()
+        }
+      }, 1000)
+      return
+    }
+
     try {
       var track = {
         title: null,
@@ -169,6 +181,10 @@
       buttons.play = null
     }
     return buttons
+  }
+
+  WebApp.getConnectBar = function () {
+    return document.querySelector('#main .now-playing-bar-container .connect-bar')
   }
 
   WebApp.start()
