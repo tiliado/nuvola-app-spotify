@@ -32,7 +32,7 @@
 
   WebApp._onLastPageRequest = function (emitter, result) {
     Nuvola.WebApp._onLastPageRequest.call(this, emitter, result)
-    if (result.url && result.url.indexOf('file://') === 0) {
+    if (result.url && (result.url.startsWith('file://') || result.url.startsWith('https://github.com/'))) {
       result.url = null
     }
   }
