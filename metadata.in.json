@@ -1,21 +1,21 @@
 {
-    "id": "spotify",
-    "name": "Spotify",
-    "maintainer_name": "Jiří Janoušek",
-    "maintainer_link": "https://github.com/fenryxo",
-    "license": "2-Clause BSD-license",
-    "home_url": "https://open.spotify.com/browse/featured",
-    "version_major": 3,
-    "version_minor": 0,
-    "api_major": 4,
-    "api_minor": 10,
-    "requirements": "Chromium[63] Feature[widevine]",
-    "categories": "AudioVideo;Audio;",
-    "build": {
-        "icons": [
-            "src/icon.svg SCALABLE 64 128 256",
-            "src/icon-xs.svg 16 22 24",
-            "src/icon-sm.svg 32 48"
-        ]
-    }
+  "id": "spotify",
+  "name": "Spotify",
+  "maintainer_name": "Jiří Janoušek",
+  "maintainer_link": "https://github.com/fenryxo",
+  "license": "2-Clause BSD-license",
+  "home_url": "https://open.spotify.com/browse/featured",
+  "version_major": 3,
+  "version_minor": 0,
+  "api_major": 4,
+  "api_minor": 11,
+  "requirements": "Chromium[63] Feature[widevine] Feature[MSE]",
+  "categories": "AudioVideo;Audio;",
+  "build": {
+    "icons": [
+      "src/icon.svg SCALABLE 64 128 256",
+      "src/icon-xs.svg 16 22 24",
+      "src/icon-sm.svg 32 48"
+    ]
+  }
 }

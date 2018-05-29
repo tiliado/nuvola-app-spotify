@@ -6,3 +6,9 @@ eu.tiliado.NuvolaAppSpotify.desktop
 metadata.json
 nuvola-app-spotify
 spotify.tar.gz
+/screenshots/
+eu.tiliado.NuvolaAppSpotify.service
+eu.tiliado.WebRuntimeAppSpotify.appdata.xml
+eu.tiliado.WebRuntimeAppSpotify.desktop
+eu.tiliado.WebRuntimeAppSpotify.service
+nuvola-app-spotify.metainfo.xml
