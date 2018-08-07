@@ -11,6 +11,7 @@
   "api_minor": 11,
   "requirements": "Chromium[63] Feature[widevine] Feature[MSE]",
   "categories": "AudioVideo;Audio;",
+  "dark_theme": true,
   "build": {
     "icons": [
       "src/icon.svg SCALABLE 64 128 256",
