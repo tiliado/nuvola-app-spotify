@@ -98,6 +98,10 @@
       player.setCanGoNext(state !== PlaybackState.UNKNOWN && !!buttons.next)
       player.setCanPlay(state !== PlaybackState.UNKNOWN && !!buttons.play)
       player.setCanPause(state !== PlaybackState.UNKNOWN && !!buttons.pause)
+
+      var shuffle = buttons.shuffle ? buttons.shuffle.classList.contains('control-button--active') : null
+      Nuvola.actions.updateEnabledFlag(PlayerAction.SHUFFLE, shuffle !== null)
+      Nuvola.actions.updateState(PlayerAction.SHUFFLE, !!shuffle)
     } finally {
       setTimeout(this.update.bind(this), 500)
     }
@@ -134,6 +138,9 @@
         break
       case PlayerAction.CHANGE_VOLUME:
         Nuvola.clickOnElement(document.querySelector('#main .volume-bar .progress-bar__bg'), parameter, 0.5)
+        break
+      case PlayerAction.SHUFFLE:
+        Nuvola.clickOnElement(buttons.shuffle)
         break
       default:
         throw Error('Action "' + name + '" not supported.')
