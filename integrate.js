@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Jiří Janoušek <janousek.jiri@gmail.com>
+ * Copyright 2017-2018 Jiří Janoušek <janousek.jiri@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -53,18 +53,6 @@
   }
 
   WebApp.update = function () {
-    /* The connect bar sometimes gets stuck and the page fails to play. */
-    if (this.getConnectBar()) {
-      setTimeout(() => {
-        if (this.getConnectBar()) {
-          window.location.reload(false)
-        } else {
-          this.update()
-        }
-      }, 1000)
-      return
-    }
-
     try {
       var track = {
         title: null,
@@ -181,10 +169,6 @@
       buttons.play = null
     }
     return buttons
-  }
-
-  WebApp.getConnectBar = function () {
-    return document.querySelector('#main .now-playing-bar-container .connect-bar')
   }
 
   WebApp.start()
