@@ -45,6 +45,7 @@
     } else {
       document.addEventListener('DOMContentLoaded', this._onPageReady.bind(this))
     }
+    this.targetRepeatStatus = null
   }
 
   WebApp._onPageReady = function () {
@@ -99,11 +100,59 @@
       player.setCanPlay(state !== PlaybackState.UNKNOWN && !!buttons.play)
       player.setCanPause(state !== PlaybackState.UNKNOWN && !!buttons.pause)
 
+      var repeat = this._getRepeatStatus(buttons.repeat)
+      Nuvola.actions.updateEnabledFlag(PlayerAction.REPEAT, repeat !== null)
+      Nuvola.actions.updateState(PlayerAction.REPEAT, repeat || 0)
+
       var shuffle = buttons.shuffle ? buttons.shuffle.classList.contains('control-button--active') : null
       Nuvola.actions.updateEnabledFlag(PlayerAction.SHUFFLE, shuffle !== null)
       Nuvola.actions.updateState(PlayerAction.SHUFFLE, !!shuffle)
     } finally {
       setTimeout(this.update.bind(this), 500)
+    }
+  }
+
+  WebApp._getRepeatStatus = function (button) {
+    if (!button) {
+      return null
+    }
+    var classes = button.classList
+    if (!classes.contains('control-button--active')) {
+      return Nuvola.PlayerRepeat.NONE
+    }
+    for (var value of classes.values()) {
+      if (value.includes('repeatonce')) {
+        return Nuvola.PlayerRepeat.TRACK
+      }
+    }
+    return Nuvola.PlayerRepeat.PLAYLIST
+  }
+
+  WebApp._setRepeatStatus = function (button, repeat) {
+    if (this.targetRepeatStatus !== null) {
+      this.targetRepeatStatus = repeat
+    } else {
+      this.targetRepeatStatus = repeat
+      this._toggleRepeatStatusIfChanged(button, null)
+    }
+  }
+
+  WebApp._toggleRepeatStatusIfChanged = function (button, originalRepeat) {
+    if (!button || this.targetRepeatStatus === null) {
+      console.log('Do not have repeat button!')
+      this.targetRepeatStatus = null
+      return
+    }
+    var repeat = this._getRepeatStatus(button)
+    if (repeat === this.targetRepeatStatus) {
+      this.targetRepeatStatus = null
+    } else {
+      if (repeat !== originalRepeat) {
+        // The repeat status has changed but we need to toggle further
+        originalRepeat = repeat
+        Nuvola.clickOnElement(button)
+      }
+      setTimeout(() => this._toggleRepeatStatusIfChanged(button, originalRepeat), 100)
     }
   }
 
@@ -141,6 +190,9 @@
         break
       case PlayerAction.SHUFFLE:
         Nuvola.clickOnElement(buttons.shuffle)
+        break
+      case PlayerAction.REPEAT:
+        this._setRepeatStatus(buttons.repeat, parameter)
         break
       default:
         throw Error('Action "' + name + '" not supported.')
