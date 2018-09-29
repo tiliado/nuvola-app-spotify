@@ -1,4 +1,4 @@
-Spotify • Nuvola Apps Runtime
+Spotify • Nuvola Apps Runtime [![CircleCI](https://circleci.com/gh/tiliado/nuvola-app-spotify/tree/master.svg?style=svg)](https://circleci.com/gh/tiliado/nuvola-app-spotify/tree/master)
 =============================
 
 Integration of Spotify into your linux desktop via
