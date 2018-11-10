@@ -1,6 +1,8 @@
 Spotify Changelog
 =================
 
+  * Web view screenshot was updated.
+
 3.1 - October 14th, 2018
 ------------------------
 
