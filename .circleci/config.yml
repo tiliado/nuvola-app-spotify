@@ -6,8 +6,10 @@ jobs:
     working_directory: ~/workdir
     steps:
       - checkout
-      - run: 
+      - run:
           name: Install deps & check project
-          command: wget https://raw.githubusercontent.com/tiliado/nuvolasdk/master/scripts/circleci.sh && chmod a+x circleci.sh && ./circleci.sh
+          command: >
+            docker run --mount src=`pwd`,target=/workdir,type=bind \
+            --privileged --name nuvolasdk-ci tiliado/nuvolasdk-ci
       - store_artifacts:
           path: ~/workdir/keep
