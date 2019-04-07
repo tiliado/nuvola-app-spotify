@@ -7,9 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install deps & check project
-          command: >
-            docker run --mount src=`pwd`,target=/workdir,type=bind
-            --privileged --name nuvolasdk-ci tiliado/nuvolasdk-ci
+          name: Pull tiliado/nuvolasdk-ci
+          command: docker pull tiliado/nuvolasdk-ci
+      - run:
+          name: Check project
+          command: docker run -v `pwd`:/workdir --privileged tiliado/nuvolasdk-ci
       - store_artifacts:
           path: ~/workdir/keep
