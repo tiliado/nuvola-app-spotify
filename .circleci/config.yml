@@ -8,9 +8,9 @@ jobs:
       - checkout
       - run:
           name: Pull tiliado/nuvolasdk-ci
-          command: docker pull tiliado/nuvolasdk-ci
+          command: docker pull tiliado/nuvolasdk-ci:store-files-on-failure
       - run:
           name: Check project
-          command: docker run -v `pwd`:/workdir --privileged tiliado/nuvolasdk-ci
+          command: docker run -v `pwd`:/workdir --privileged tiliado/nuvolasdk-ci:store-files-on-failure
       - store_artifacts:
           path: ~/workdir/keep

@@ -33,7 +33,7 @@
   WebApp._onLastPageRequest = function (emitter, result) {
     Nuvola.WebApp._onLastPageRequest.call(this, emitter, result)
     if (result.url && (result.url.startsWith('file://') || result.url.startsWith('https://github.com/'))) {
-      result.url = null
+        result.url = null
     }
   }
 
@@ -64,7 +64,7 @@
         length: null
       }
       var elm = null
-      elm = document.querySelector('#main .now-playing .track-info__name')
+      elm =   document.querySelector('#main .now-playing .track-info__name')
       if (elm) {
         track.title = elm.textContent || null
       }
@@ -77,9 +77,9 @@
         var url = elm.style.backgroundImage
         track.artLocation = url.startsWith('url(') ? url.slice(5, -2) : null
       }
-      var trackTime = this.trackTime()
-      track.length = trackTime.total
-      player.setTrack(track)
+      var trackTime = this.trackTime();
+      track.length = trackTime.total;
+      player.setTrack(track);
       player.setTrackPosition(trackTime.now)
 
       var state
