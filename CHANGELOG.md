@@ -2,6 +2,7 @@ Spotify Changelog
 =================
 
   * Web view screenshot was updated.
+  * Playback actions (play/pause, previous/next track) were fixed. Issue: tiliado/nuvolaruntime#563
 
 3.1 - October 14th, 2018
 ------------------------

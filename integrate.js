@@ -152,7 +152,7 @@
         originalRepeat = repeat
         Nuvola.clickOnElement(button)
       }
-      setTimeout(() => this._toggleRepeatStatusIfChanged(button, originalRepeat), 100)
+      setTimeout(() => this._toggleRepeatStatusIfChanged(button, originalRepeat), 500)
     }
   }
 
@@ -213,19 +213,23 @@
   }
 
   WebApp.buttons = function () {
-    var elm = document.querySelector('#main .player-controls .player-controls__buttons')
-    var children = elm ? elm.childNodes : [null, null, null, null, null]
+    var children = document.querySelectorAll('#main .player-controls .player-controls__buttons > div > button')
     var buttons = {
-      shuffle: children[0],
-      prev: children[1],
-      play: children[2],
-      next: children[3],
-      repeat: children[4],
+      shuffle: children[0] || null,
+      prev: children[1] || null,
+      play: children[2] || null,
+      next: children[3] || null,
+      repeat: children[4] || null,
       pause: null
     }
     if (buttons.play && buttons.play.className.includes('pause')) {
       buttons.pause = buttons.play
       buttons.play = null
+    }
+    for (var key in buttons) {
+        if (buttons[key] && buttons[key].disabled) {
+            buttons[key] = null
+        }
     }
     return buttons
   }
