@@ -227,9 +227,9 @@
       buttons.play = null
     }
     for (var key in buttons) {
-        if (buttons[key] && buttons[key].disabled) {
-            buttons[key] = null
-        }
+      if (buttons[key] && buttons[key].disabled) {
+        buttons[key] = null
+      }
     }
     return buttons
   }
