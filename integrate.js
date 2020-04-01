@@ -64,11 +64,11 @@
         length: null
       }
       var elm = null
-      elm = document.querySelector('#main .now-playing .track-info__name')
+      elm = document.querySelector('#main .now-playing [data-testid="nowplaying-track-link"]')
       if (elm) {
         track.title = elm.textContent || null
       }
-      elm = document.querySelector('#main .now-playing .track-info__artists')
+      elm = document.querySelector('#main .Root__media [href^="/artist/"]')
       if (elm) {
         track.artist = elm.textContent || null
       }
