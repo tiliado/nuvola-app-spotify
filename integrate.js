@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 Jiří Janoušek <janousek.jiri@gmail.com>
+ * Copyright 2017-2020 Jiří Janoušek <janousek.jiri@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -72,11 +72,12 @@
       if (elm) {
         track.artist = elm.textContent || null
       }
-      elm = document.querySelector('#main .now-playing .cover-art-image')
-      if (elm) {
-        var url = elm.style.backgroundImage
-        track.artLocation = url.startsWith('url(') ? url.slice(5, -2) : null
-      }
+      track.artLocation = Nuvola.queryAttribute(
+        '#main .now-playing .cover-art img',
+        'src',
+        src => src ? src.replace('00004851', '00001e02') : null
+      )
+
       var trackTime = this.trackTime()
       track.length = trackTime.total
       player.setTrack(track)

@@ -3,7 +3,8 @@ Spotify Changelog
 
   * Web view screenshot was updated.
   * Playback actions (play/pause, previous/next track) were fixed. Issue: tiliado/nuvolaruntime#563
-  * Fix song title and artist retrival (xcffl). Pull request: nuvola-app-spotify#27
+  * Fix song title and artist retrieval (xcffl). Pull request: nuvola-app-spotify#27
+  * Fix album art retrieval.
 
 3.1 - October 14th, 2018
 ------------------------
