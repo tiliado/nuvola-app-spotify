@@ -1,6 +1,9 @@
 Spotify Changelog
 =================
 
+3.2 - September 28th, 2020
+--------------------------
+
   * Web view screenshot was updated.
   * Playback actions (play/pause, previous/next track) were fixed. Issue: tiliado/nuvolaruntime#563
   * Fix song title and artist retrieval (xcffl). Pull request: nuvola-app-spotify#27
