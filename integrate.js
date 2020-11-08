@@ -25,10 +25,10 @@
 'use strict';
 
 (function (Nuvola) {
-  var player = Nuvola.$object(Nuvola.MediaPlayer)
-  var PlaybackState = Nuvola.PlaybackState
-  var PlayerAction = Nuvola.PlayerAction
-  var WebApp = Nuvola.$WebApp()
+  const player = Nuvola.$object(Nuvola.MediaPlayer)
+  const PlaybackState = Nuvola.PlaybackState
+  const PlayerAction = Nuvola.PlayerAction
+  const WebApp = Nuvola.$WebApp()
 
   WebApp._onLastPageRequest = function (emitter, result) {
     Nuvola.WebApp._onLastPageRequest.call(this, emitter, result)
@@ -39,7 +39,7 @@
 
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
-    var state = document.readyState
+    const state = document.readyState
     if (state === 'interactive' || state === 'complete') {
       this._onPageReady()
     } else {
@@ -55,7 +55,7 @@
 
   WebApp.update = function () {
     try {
-      var track = {
+      const track = {
         title: null,
         artist: null,
         album: null,
@@ -63,7 +63,7 @@
         rating: null,
         length: null
       }
-      var elm = null
+      let elm = null
       elm = document.querySelector('#main .now-playing [data-testid="nowplaying-track-link"]')
       if (elm) {
         track.title = elm.textContent || null
@@ -78,13 +78,13 @@
         src => src ? src.replace('00004851', '00001e02') : null
       )
 
-      var trackTime = this.trackTime()
+      const trackTime = this.trackTime()
       track.length = trackTime.total
       player.setTrack(track)
       player.setTrackPosition(trackTime.now)
 
-      var state
-      var buttons = this.buttons()
+      let state
+      const buttons = this.buttons()
       if (!trackTime.total || trackTime.total === '0:00') {
         state = PlaybackState.UNKNOWN
       } else if (buttons.play) {
@@ -101,11 +101,11 @@
       player.setCanPlay(state !== PlaybackState.UNKNOWN && !!buttons.play)
       player.setCanPause(state !== PlaybackState.UNKNOWN && !!buttons.pause)
 
-      var repeat = this._getRepeatStatus(buttons.repeat)
+      const repeat = this._getRepeatStatus(buttons.repeat)
       Nuvola.actions.updateEnabledFlag(PlayerAction.REPEAT, repeat !== null)
       Nuvola.actions.updateState(PlayerAction.REPEAT, repeat || 0)
 
-      var shuffle = buttons.shuffle ? buttons.shuffle.classList.contains('control-button--active') : null
+      const shuffle = buttons.shuffle ? buttons.shuffle.classList.contains('control-button--active') : null
       Nuvola.actions.updateEnabledFlag(PlayerAction.SHUFFLE, shuffle !== null)
       Nuvola.actions.updateState(PlayerAction.SHUFFLE, !!shuffle)
     } finally {
@@ -117,11 +117,11 @@
     if (!button) {
       return null
     }
-    var classes = button.classList
+    const classes = button.classList
     if (!classes.contains('control-button--active')) {
       return Nuvola.PlayerRepeat.NONE
     }
-    for (var value of classes.values()) {
+    for (const value of classes.values()) {
       if (value.includes('repeatonce')) {
         return Nuvola.PlayerRepeat.TRACK
       }
@@ -144,7 +144,7 @@
       this.targetRepeatStatus = null
       return
     }
-    var repeat = this._getRepeatStatus(button)
+    const repeat = this._getRepeatStatus(button)
     if (repeat === this.targetRepeatStatus) {
       this.targetRepeatStatus = null
     } else {
@@ -158,7 +158,7 @@
   }
 
   WebApp._onActionActivated = function (emitter, name, parameter) {
-    var buttons = this.buttons()
+    const buttons = this.buttons()
     switch (name) {
       case PlayerAction.TOGGLE_PLAY:
         Nuvola.clickOnElement(buttons.play || buttons.pause)
@@ -178,14 +178,15 @@
       case PlayerAction.NEXT_SONG:
         Nuvola.clickOnElement(buttons.next)
         break
-      case PlayerAction.SEEK:
-        var trackTime = this.trackTime()
-        var total = Nuvola.parseTimeUsec(trackTime.total)
+      case PlayerAction.SEEK: {
+        const trackTime = this.trackTime()
+        const total = Nuvola.parseTimeUsec(trackTime.total)
         if (parameter >= 0 && parameter <= total) {
           Nuvola.clickOnElement(
             document.querySelector('#main .player-controls .progress-bar__bg'), parameter / total, 0.5)
         }
         break
+      }
       case PlayerAction.CHANGE_VOLUME:
         Nuvola.clickOnElement(document.querySelector('#main .volume-bar .progress-bar'), parameter, 0.5)
         break
@@ -201,7 +202,7 @@
   }
 
   WebApp.trackTime = function () {
-    var elms = document.querySelectorAll('#main .player-controls .playback-bar__progress-time')
+    const elms = document.querySelectorAll('#main .player-controls .playback-bar__progress-time')
     return {
       now: elms.length ? elms[0].textContent || null : null,
       total: elms.length > 1 ? elms[1].textContent || null : null
@@ -209,13 +210,13 @@
   }
 
   WebApp.volume = function () {
-    var elm = document.querySelector('#main .volume-bar .progress-bar__slider')
+    const elm = document.querySelector('#main .volume-bar .progress-bar__slider')
     return elm && elm.style.left.endsWith('%') ? elm.style.left.slice(0, -1) / 100 : null
   }
 
   WebApp.buttons = function () {
-    var children = document.querySelectorAll('#main .player-controls .player-controls__buttons > div > button')
-    var buttons = {
+    const children = document.querySelectorAll('#main .player-controls .player-controls__buttons > div > button')
+    const buttons = {
       shuffle: children[0] || null,
       prev: children[1] || null,
       play: children[2] || null,
@@ -227,7 +228,7 @@
       buttons.pause = buttons.play
       buttons.play = null
     }
-    for (var key in buttons) {
+    for (const key in buttons) {
       if (buttons[key] && buttons[key].disabled) {
         buttons[key] = null
       }
