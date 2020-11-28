@@ -215,16 +215,16 @@
   }
 
   WebApp.buttons = function () {
-    const children = document.querySelectorAll('#main .player-controls .player-controls__buttons > div > button')
+    const children = document.querySelectorAll('#main .player-controls .player-controls__buttons > button')
     const buttons = {
       shuffle: children[0] || null,
       prev: children[1] || null,
       play: children[2] || null,
-      next: children[3] || null,
-      repeat: children[4] || null,
+      next: document.querySelector('#main .player-controls .player-controls__buttons button.spoticon-skip-forward-16'),
+      repeat: document.querySelector('#main .player-controls .player-controls__buttons button.spoticon-repeat-16'),
       pause: null
     }
-    if (buttons.play && buttons.play.className.includes('pause')) {
+    if (buttons.play && buttons.play.firstElementChild.firstElementChild.getAttribute('fill') === 'none') {
       buttons.pause = buttons.play
       buttons.play = null
     }

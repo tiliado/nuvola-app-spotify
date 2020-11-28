@@ -1,6 +1,8 @@
 Spotify Changelog
 =================
 
+  * Fix playback actions. Issue: tiliado/nuvolaplayer#677
+
 3.2 - September 28th, 2020
 --------------------------
 
