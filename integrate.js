@@ -220,8 +220,8 @@
       shuffle: children[0] || null,
       prev: children[1] || null,
       play: children[2] || null,
-      next: document.querySelector('#main .player-controls .player-controls__buttons button.spoticon-skip-forward-16'),
-      repeat: document.querySelector('#main .player-controls .player-controls__buttons button.spoticon-repeat-16'),
+      next: children[3] || null,
+      repeat: children[4] || null,
       pause: null
     }
     if (buttons.play && buttons.play.firstElementChild.firstElementChild.getAttribute('fill') === 'none') {
