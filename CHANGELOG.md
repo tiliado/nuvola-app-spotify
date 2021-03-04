@@ -1,6 +1,8 @@
 Spotify Changelog
 =================
 
+  * Fix next and repeat actions. PR: tiliado/nuvola-app-spotify#28
+
 3.3 - November 28th, 2020
 -------------------------
 
