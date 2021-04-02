@@ -10,6 +10,7 @@
   "api_major": 4,
   "api_minor": 13,
   "requirements": "Chromium[63] Feature[widevine] Feature[MSE]",
+  "user_agent": "SAFARI",
   "categories": "AudioVideo;Audio;",
   "dark_theme": true,
   "build": {
