@@ -64,7 +64,7 @@
         length: null
       }
       let elm = null
-      elm = document.querySelector('#main .now-playing [data-testid="nowplaying-track-link"]')
+      elm = document.querySelector('#main [data-testid="nowplaying-track-link"]')
       if (elm) {
         track.title = elm.textContent || null
       }
@@ -73,7 +73,7 @@
         track.artist = elm.textContent || null
       }
       track.artLocation = Nuvola.queryAttribute(
-        '#main .now-playing .cover-art img',
+        '#main img[data-testid="cover-art-image"]',
         'src',
         src => src ? src.replace('00004851', '00001e02') : null
       )
@@ -105,7 +105,7 @@
       Nuvola.actions.updateEnabledFlag(PlayerAction.REPEAT, repeat !== null)
       Nuvola.actions.updateState(PlayerAction.REPEAT, repeat || 0)
 
-      const shuffle = buttons.shuffle ? buttons.shuffle.classList.contains('control-button--active') : null
+      const shuffle = buttons.shuffle ? buttons.shuffle.getAttribute('aria-checked') === 'true' : null
       Nuvola.actions.updateEnabledFlag(PlayerAction.SHUFFLE, shuffle !== null)
       Nuvola.actions.updateState(PlayerAction.SHUFFLE, !!shuffle)
     } finally {
@@ -117,16 +117,13 @@
     if (!button) {
       return null
     }
-    const classes = button.classList
-    if (!classes.contains('control-button--active')) {
-      return Nuvola.PlayerRepeat.NONE
+
+    switch (button.getAttribute('aria-checked')) {
+      case 'mixed': return Nuvola.PlayerRepeat.TRACK
+      case 'true': return Nuvola.PlayerRepeat.PLAYLIST
+      case 'false': return Nuvola.PlayerRepeat.NONE
+      default: return null
     }
-    for (const value of classes.values()) {
-      if (value.includes('repeatonce')) {
-        return Nuvola.PlayerRepeat.TRACK
-      }
-    }
-    return Nuvola.PlayerRepeat.PLAYLIST
   }
 
   WebApp._setRepeatStatus = function (button, repeat) {
