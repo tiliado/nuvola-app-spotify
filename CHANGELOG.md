@@ -1,6 +1,9 @@
 Spotify Changelog
 =================
 
+3.4 - April 11th, 2021
+----------------------
+
   * Fix next and repeat actions. PR: tiliado/nuvola-app-spotify#28
   * Fix Google login. Issue: tiliado/nuvolaplayer#719
   * Update metadata parsing.
