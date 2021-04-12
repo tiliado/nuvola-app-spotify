@@ -56,22 +56,14 @@
   WebApp.update = function () {
     try {
       const track = {
-        title: null,
-        artist: null,
+        title: Nuvola.queryText('#main [data-testid="nowplaying-track-link"]'),
+        artist: Nuvola.queryText('#main [data-testid="nowplaying-artist"]'),
         album: null,
         artLocation: null,
         rating: null,
         length: null
       }
-      let elm = null
-      elm = document.querySelector('#main [data-testid="nowplaying-track-link"]')
-      if (elm) {
-        track.title = elm.textContent || null
-      }
-      elm = document.querySelector('#main .Root__media [href^="/artist/"]')
-      if (elm) {
-        track.artist = elm.textContent || null
-      }
+
       track.artLocation = Nuvola.queryAttribute(
         '#main img[data-testid="cover-art-image"]',
         'src',

@@ -1,6 +1,8 @@
 Spotify Changelog
 =================
 
+  * Fix artist parsing on the artist page. Issue: tiliado/nuvolaplayer#723
+
 3.4 - April 11th, 2021
 ----------------------
 
