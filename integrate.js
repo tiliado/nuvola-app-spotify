@@ -191,10 +191,9 @@
   }
 
   WebApp.trackTime = function () {
-    const elms = document.querySelectorAll('#main .player-controls .playback-bar__progress-time')
     return {
-      now: elms.length ? elms[0].textContent || null : null,
-      total: elms.length > 1 ? elms[1].textContent || null : null
+      now: Nuvola.queryText('#main .player-controls div[data-testid="playback-position"]') || null,
+      total: Nuvola.queryText('#main .player-controls div[data-testid="playback-duration"]') || null
     }
   }
 
