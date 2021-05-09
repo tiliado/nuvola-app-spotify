@@ -1,6 +1,9 @@
 Spotify Changelog
 =================
 
+3.5 - May 9th, 2021
+-------------------
+
   * Fix artist parsing on the artist page. Issue: tiliado/nuvolaplayer#723
   * Fix wrong parsing of track length that caused excessive notifications. Issue: tiliado/nuvolaplayer#725
 
