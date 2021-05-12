@@ -54,6 +54,12 @@
   }
 
   WebApp.update = function () {
+    // https://github.com/tiliado/nuvolaplayer/issues/732
+    const h2 = document.querySelector('section[data-testid="artist-page"] h2')
+    if (h2) {
+      h2.parentElement.parentElement.style.removeProperty('--minimumColumnWidth')
+    }
+
     try {
       const track = {
         title: Nuvola.queryText('#main [data-testid="nowplaying-track-link"]'),
