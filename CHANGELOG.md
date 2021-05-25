@@ -2,6 +2,7 @@ Spotify Changelog
 =================
 
  * Fix too narrow track list on artist page. Issue: tiliado/nuvolaplayer#732
+ * Fix playback actions. Issue: tiliado/nuvolaplayer#739
 
 3.5 - May 9th, 2021
 -------------------

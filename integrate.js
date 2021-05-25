@@ -89,7 +89,10 @@
         state = PlaybackState.PAUSED
       } else if (buttons.pause) {
         state = PlaybackState.PLAYING
+      } else {
+        state = PlaybackState.UNKNOWN
       }
+
       player.updateVolume(this.volume())
       player.setPlaybackState(state)
       player.setCanSeek(state !== PlaybackState.UNKNOWN)
@@ -209,7 +212,7 @@
   }
 
   WebApp.buttons = function () {
-    const children = document.querySelectorAll('#main .player-controls .player-controls__buttons > button')
+    const children = document.querySelectorAll('#main .player-controls .player-controls__buttons button')
     const buttons = {
       shuffle: children[0] || null,
       prev: children[1] || null,
