@@ -1,6 +1,8 @@
 Spotify Changelog
 =================
 
+ * Fix artist and track title parsing.
+
 3.6 - July 31st, 2021
 ---------------------
 

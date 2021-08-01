@@ -62,8 +62,8 @@
 
     try {
       const track = {
-        title: Nuvola.queryText('#main [data-testid="nowplaying-track-link"]'),
-        artist: Nuvola.queryText('#main [data-testid="nowplaying-artist"]'),
+        title: Nuvola.queryText('.Root__now-playing-bar [data-testid="context-item-info-title"]'),
+        artist: Nuvola.queryText('.Root__now-playing-bar [data-testid="context-item-info-artist"]'),
         album: null,
         artLocation: null,
         rating: null,
