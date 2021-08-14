@@ -2,6 +2,7 @@ Spotify Changelog
 =================
 
  * Fix artist and track title parsing.
+ * Fix track progress bar integration. Issue: tiliado/nuvolaplayer#761
 
 3.6 - July 31st, 2021
 ---------------------

@@ -181,7 +181,7 @@
         const total = Nuvola.parseTimeUsec(trackTime.total)
         if (parameter >= 0 && parameter <= total) {
           Nuvola.clickOnElement(
-            document.querySelector('#main .player-controls .progress-bar__bg'), parameter / total, 0.5)
+            document.querySelector('#main .player-controls div[data-testid="playback-progressbar"] div[data-testid="progress-bar"]'), parameter / total, 0.5)
         }
         break
       }
