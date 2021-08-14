@@ -186,7 +186,7 @@
         break
       }
       case PlayerAction.CHANGE_VOLUME:
-        Nuvola.clickOnElement(document.querySelector('#main .volume-bar .progress-bar'), parameter, 0.5)
+        Nuvola.clickOnElement(document.querySelector('#main div.volume-bar div[data-testid="progress-bar"]'), parameter, 0.5)
         break
       case PlayerAction.SHUFFLE:
         Nuvola.clickOnElement(buttons.shuffle)
@@ -207,8 +207,13 @@
   }
 
   WebApp.volume = function () {
-    const elm = document.querySelector('#main .volume-bar .progress-bar__slider')
-    return elm && elm.style.left.endsWith('%') ? elm.style.left.slice(0, -1) / 100 : null
+    const elm = document.querySelector('#main div.volume-bar div[data-testid="progress-bar"]')
+    if (!elm) {
+      return null
+    }
+
+    const value = elm.style.getPropertyValue('--progress-bar-transform')
+    return value.endsWith('%') ? value.slice(0, -1) / 100 : null
   }
 
   WebApp.buttons = function () {
