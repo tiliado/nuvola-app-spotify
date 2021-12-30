@@ -6,7 +6,7 @@
   "license": "2-Clause BSD-license",
   "home_url": "https://open.spotify.com/browse/featured",
   "version_major": 3,
-  "version_minor": 6,
+  "version_minor": 7,
   "api_major": 4,
   "api_minor": 13,
   "requirements": "Chromium[63] Feature[widevine] Feature[MSE]",

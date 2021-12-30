@@ -1,6 +1,9 @@
 Spotify Changelog
 =================
 
+3.7 - December 30th, 2021
+-------------------------
+
  * Fix artist and track title parsing.
  * Fix track progress bar integration. Issue: tiliado/nuvolaplayer#761
  * Fix integration of volume bar.
